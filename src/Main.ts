@@ -162,7 +162,7 @@ function questionOver(status: "correct" | "wrong" | "timeout") {
     clearTimeouts();
     timeBar.style.animationPlayState = "paused";
     if (status === "correct") {
-        addPoints(Math.max(0, 10 + (questionTime !== Infinity ? questionTime - (Date.now() - questionStartedAt) / 1000 : 0)));
+        addPoints(Math.max(5, 10 + (questionTime !== Infinity ? questionTime - (Date.now() - questionStartedAt) / 1000 : 0)));
         newQuestion();
     } else {
         addPoints(-5);
