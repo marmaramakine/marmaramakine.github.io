@@ -131,7 +131,7 @@ function updateHighScore() {
 }
 
 function addPoints(p: number) {
-    p = Math.max(0, Math.round(p));
+    p = Math.max(-points, Math.round(p));
     points += p;
     if (points > 1e7) points = 0;
     pointsText.textContent = points.toString();
@@ -162,7 +162,7 @@ function questionOver(status: "correct" | "wrong" | "timeout") {
     clearTimeouts();
     timeBar.style.animationPlayState = "paused";
     if (status === "correct") {
-        addPoints(10 + (questionTime !== Infinity ? questionTime - (Date.now() - questionStartedAt) / 1000 : 0));
+        addPoints(Math.max(0, 10 + (questionTime !== Infinity ? questionTime - (Date.now() - questionStartedAt) / 1000 : 0)));
         newQuestion();
     } else {
         addPoints(-5);
