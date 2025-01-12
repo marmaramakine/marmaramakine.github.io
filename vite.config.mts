@@ -10,7 +10,7 @@ export default defineConfig({
     },
     build: {
         target: "ES2022",
-        outDir: "../dist",
+        outDir: "../docs",
         emptyOutDir: true,
         rollupOptions: {
             input: "./src/index.html"
