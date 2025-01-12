@@ -127,7 +127,7 @@ function updateHighScore() {
         localStorage.setItem(key, highScore.toString());
     }
 
-    if (highScore) highScoreText.textContent = "Rekor puan: " + highScore;
+    highScoreText.textContent = highScore ? "Rekor puan: " + highScore : "";
 }
 
 function addPoints(p: number) {
