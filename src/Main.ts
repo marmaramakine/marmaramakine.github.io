@@ -12,6 +12,7 @@ const pressToStart = q(".press-to-start");
 const questionContainer = q(".question-container");
 const questionLabel = q(".question");
 const questionOptions = q(".options");
+const timeContainer = q(".time-bar");
 const timeBar = q(".time-value");
 const pointsText = q(".points");
 const highScoreText = q(".high-score");
@@ -76,7 +77,7 @@ chooseTopic.appendChild(anyOption);
 let questionTime: number;
 let questionStartedAt: number;
 let currentQuestion: Question;
-let difficulty = parseInt(localStorage.getItem("calc#difficulty") ?? "2");
+let difficulty = parseInt(localStorage.getItem("calc#difficulty") ?? "3");
 let currentTopic = chooseTopic.value = localStorage.getItem("calc#topic") ?? topics[0].name;
 let optionNames: HTMLDivElement[];
 let correctOption: HTMLDivElement;
@@ -109,7 +110,7 @@ function generateQuestion() {
 
 function showQuestionInABit(question: Question) {
     questionContainer.style.scale = "0";
-    timeBar.hidden = true;
+    timeContainer.hidden = true;
     setSafeTimeout(() => showQuestion(question), 500);
 }
 
@@ -211,8 +212,9 @@ function showQuestion(question: Question) {
     renderLatex((isMobileViewport() ? "\\Large " : "\\huge ") + question.title, questionLabel);
     questionOptions.innerHTML = "";
 
-    questionTime = question.normalTime * [4, 2, 1, 0.5, 0.25][difficulty] * Math.max(0.3, Math.E ** (-points / 800));
-    timeBar.hidden = false;
+    questionTime = question.normalTime * [Infinity, 4, 2, 1, 0.5, 0.25][difficulty] * Math.max(0.3, Math.E ** (-points / 800));
+
+    timeContainer.hidden = questionTime === Infinity;
     timeBar.style.animationDuration = questionTime + "s";
 
     if (question.input === "text") {
@@ -225,7 +227,7 @@ function showQuestion(question: Question) {
         }
     }
 
-    setSafeTimeout(() => {
+    if (questionTime !== Infinity) setSafeTimeout(() => {
         if (over) return;
 
         for (const name of optionNames) {

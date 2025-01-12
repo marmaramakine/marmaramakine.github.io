@@ -66,6 +66,7 @@ body {
 
 .high-score, .end-button {
     flex: 0 0 auto;
+    z-index: 2;
 }
 
 .current-topic, .high-score {
@@ -146,19 +147,6 @@ body {
 .question {
     text-align: center;
     max-width: 100%;
-}
-
-.katex {
-    white-space: normal;
-    word-wrap: break-word;
-    overflow-wrap: anywhere;
-}
-
-.katex-display {
-    display: block;
-    text-align: left;
-    overflow-x: auto;
-    overflow-y: hidden;
 }
 
 .options {
